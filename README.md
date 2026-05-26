@@ -28,7 +28,7 @@ The assumption for Black-Scholes is that the time is continuous. For american op
 
 
 
-options-pricing/
+options-pricing// 
 ├── models/
 │   ├── black_scholes.py
 │   ├── binomial_tree.py

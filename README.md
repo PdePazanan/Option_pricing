@@ -11,7 +11,7 @@ An option is a financial contract that gives you the right (but not the obligati
 
 Black-Scholes assumes that the price of a stock follows a geometric Brownian motion, according to the formula below:
 
-$dS=μSdt+σSdWt​$
+$ dS=μSdt+σSdW_t ​$
 
 
 ## Binomial tree model
@@ -21,13 +21,7 @@ The assumption for Black-Scholes is that the time is continuous. For american op
 
 
 
-
-
-
-
-
-
-
+```bash
 options-pricing/
 ├── models/
 │   ├── black_scholes.py
@@ -39,6 +33,7 @@ options-pricing/
 │   └── demo.ipynb
 ├── README.md
 └── requirements.txt
+```
 
 
 

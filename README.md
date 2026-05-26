@@ -22,12 +22,7 @@ The assumption for Black-Scholes is that the time is continuous. For american op
 
 
 
-
-
-
-
-
-
+```bash
 options-pricing/
 ├── models/
 │   ├── black_scholes.py
@@ -40,6 +35,7 @@ options-pricing/
 ├── README.md
 └── requirements.txt
 ```
+
 
 
 

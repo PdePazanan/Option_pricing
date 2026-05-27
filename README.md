@@ -27,19 +27,20 @@ With this method, we will simulate a lot of trajectories of the price of the opt
 
 
 
-
-
+```text
 options-pricing/
-├── models/
-│   ├── black_scholes.py
-│   ├── binomial_tree.py
-│   └── monte_carlo.py
-├── visualisation/
-│   └── vol_surface.py
-├── notebooks/
-│   └── demo.ipynb
-├── README.md
-└── requirements.txt
+|-- models/
+|   |-- black_scholes.py
+|   |-- binomial_tree.py
+|   `-- monte_carlo.py
+|-- visualisation/
+|   `-- vol_surface.py
+|-- notebooks/
+|   `-- demo.ipynb
+|-- README.md
+`-- requirements.txt
+```
+
 
 
 

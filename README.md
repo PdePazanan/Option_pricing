@@ -21,8 +21,9 @@ The assumption for Black-Scholes is that the time is continuous. For american op
 
 
 
+## Monte Carlo model 
 
-
+With this method, we will simulate a lot of trajectories of the price of the option till the maturity. Then calculate the mean of all these final price.
 
 
 
@@ -39,7 +40,11 @@ options-pricing/
 │   └── demo.ipynb
 ├── README.md
 └── requirements.txt
-```
 
 
+
+
+### References 
+
+Options, Futures, and Other Derivatives — John Hull 
 

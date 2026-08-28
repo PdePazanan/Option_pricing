@@ -1,9 +1,12 @@
 # Option pricing
 
+Implementation and comparison of three classic option pricing models: Black-Scholes, Binomial Tree (Cox-Ross-Rubinstein), and Monte Carlo simulation.
 
-Black-Scholes, Binomial Tree and Monte Carlo option pricing models
+## Overview
 
-An option is a financial contract that gives you the right (but not the obligation) to buy or sell a stock at a price fixed in advance, called the strike price K, at a future date called maturity T.
+An option is a financial contract that gives its holder the right (not the obligation) to buy (call) or sell (put) an underlying asset at a price fixed in advance (the strike, K) at a future date (the maturity, T). 
+The important question in options theory is how to price this right today, given the current price of the underlying, its volatility, and the risk-free rate.
+
 
 
 

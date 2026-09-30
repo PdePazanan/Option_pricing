@@ -1,14 +1,7 @@
-"""
-Monte Carlo pricing pour options européennes.
 
-Principe : on simule plein de trajectoires possibles du prix du sous-jacent,
-on calcule le payoff pour chacune, on fait la moyenne actualisée.
+#Monte Carlo pricing pour options européennes.
 
-Comparé à Black-Scholes (formule fermée) et au binomial (arbre), Monte Carlo
-est plus lent mais beaucoup plus flexible : ça s'étend facilement à des
-options exotiques (barrière, asiatique...) que les deux autres méthodes
-ne peuvent pas gérer facilement.
-"""
+
 
 import numpy as np
 import sys, os
@@ -17,18 +10,9 @@ from models.black_scholes import price as bs_price
 
 
 def simulate_terminal_prices(S, T, r, sigma, n_sim, antithetic=False, seed=None):
-    """
-    Simule les prix terminaux S_T sous la mesure risque-neutre.
+    
+    #Simule les prix terminaux S_T sous la mesure risque-neutre.
 
-    Formule (GBM) : S_T = S * exp[(r - sigma^2/2)*T + sigma*sqrt(T)*Z], Z ~ N(0,1)
-    Le -sigma^2/2 c'est la correction d'Itô, sans ça on biaise le prix moyen
-    vers le haut (Jensen).
-
-    Si antithetic=True : pour chaque Z tiré on utilise aussi -Z. Ça réduit la
-    variance de l'estimateur (Z et -Z sont négativement corrélés) pour un
-    coût de calcul quasi identique. En pratique on gagne en général 40-60%
-    de simulations pour la même précision.
-    """
     rng = np.random.default_rng(seed)
 
     drift = (r - 0.5 * sigma**2) * T
@@ -46,12 +30,9 @@ def simulate_terminal_prices(S, T, r, sigma, n_sim, antithetic=False, seed=None)
 
 def price(S, K, T, r, sigma, n_sim=100_000, option_type='call',
           antithetic=True, seed=None):
-    """
-    Prix d'une option européenne par Monte Carlo.
+    
+   # Prix d'une option  par Monte Carlo.
 
-    On simule S_T, on calcule le payoff, on actualise la moyenne :
-    C = e^(-rT) * E[max(S_T - K, 0)]
-    """
     ST = simulate_terminal_prices(S, T, r, sigma, n_sim, antithetic, seed)
 
     if option_type == 'call':
@@ -66,14 +47,7 @@ def price(S, K, T, r, sigma, n_sim=100_000, option_type='call',
 
 def price_with_ci(S, K, T, r, sigma, n_sim=100_000, option_type='call',
                   antithetic=True, confidence=0.95, seed=None):
-    """
-    Même chose que price(), mais avec un intervalle de confiance sur
-    l'estimation (utile pour savoir si notre nombre de simulations suffit).
-
-    Par le théorème central limite, la moyenne des payoffs est ~normale,
-    donc erreur standard = std(payoffs) / sqrt(n). On en déduit l'IC.
-
-    """
+  
     from scipy import stats
 
     ST = simulate_terminal_prices(S, T, r, sigma, n_sim, antithetic, seed)
@@ -100,10 +74,7 @@ def price_with_ci(S, K, T, r, sigma, n_sim=100_000, option_type='call',
 
 
 def antithetic_comparison(S, K, T, r, sigma, option_type='call', n_runs=20):
-    """
-    Compare la variance de l'estimateur standard vs antithétique en relançant
-    plusieurs fois la simulation (pour voir concrètement le gain).
-    """
+    # compare variance et estimateur standard
     n_sim = 10_000
     bs = bs_price(S, K, T, r, sigma, option_type)
 
@@ -124,7 +95,6 @@ def antithetic_comparison(S, K, T, r, sigma, option_type='call', n_runs=20):
 
 
 def convergence_vs_bs(S, K, T, r, sigma, option_type='call', seed=42):
-    """Vérifie qu'on converge bien vers le prix Black-Scholes quand n_sim augmente."""
     bs = bs_price(S, K, T, r, sigma, option_type)
     steps = [1_000, 5_000, 10_000, 50_000, 100_000, 500_000]
     results = []

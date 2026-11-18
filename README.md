@@ -1,6 +1,6 @@
 # Option pricing
-
-Implementation and comparison of three classic option pricing models: Black-Scholes, Binomial Tree (Cox-Ross-Rubinstein), and Monte Carlo simulation.
+In this project, we did an implementation and comparison of three classic option pricing models: Black-Scholes, Binomial Tree (Cox-Ross-Rubinstein), and Monte Carlo simulation.
+Those methods are often used to price options.
 
 ## Overview
 

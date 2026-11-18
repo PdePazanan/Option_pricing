@@ -1,10 +1,7 @@
-"""
-Arbre binomial CRR (Cox-Ross-Rubinstein) pour options européennes et américaines.
 
-Contrairement à Black-Scholes (temps continu, européen only), l'arbre
-discrétise le temps en N pas, ce qui permet de gérer l'exercice anticipé
-des options américaines.
-"""
+#Arbre binomial CRR (Cox-Ross-Rubinstein) pour options européennes et américaines.
+
+
 
 import numpy as np
 import sys
@@ -14,15 +11,10 @@ from models.black_scholes import price as bs_price
 
 
 def crr_params(T, r, sigma, N):
-    """
-    Calcule u, d, p pour l'arbre CRR.
+    
+   # Calcule u, d, p pour l'arbre CRR.
 
-    u et d sont choisis pour que d = 1/u (arbre recombinant, sinon on
-    aurait 2^N nœuds au lieu de N+1) et pour matcher la variance du GBM.
-    p est la proba risque-neutre de monter.
-
-    Condition de non-arbitrage : d < e^(r*dt) < u, sinon p sort de [0,1].
-    """
+    
     dt = T / N
     u = np.exp(sigma * np.sqrt(dt))
     d = 1.0 / u
@@ -35,13 +27,9 @@ def crr_params(T, r, sigma, N):
 
 
 def build_price_tree(S, params, N):
-    """
-    Matrice triangulaire des prix du sous-jacent à chaque nœud.
-    price_tree[i, j] = prix au pas i après j descentes.
-
-    Grâce à u*d=1 l'arbre est recombinant donc on peut calculer directement
-    price_tree[i,j] = S * u^(i-j) * d^j sans repasser par tous les chemins.
-    """
+    
+   # Matrice triangulaire des prix du sous-jacent à chaque nœud.
+   
     u, d = params['u'], params['d']
     tree = np.zeros((N + 1, N + 1))
 
@@ -53,16 +41,9 @@ def build_price_tree(S, params, N):
 
 
 def price(S, K, T, r, sigma, N=200, option_type='call', exercise='european'):
-    """
-    Prix d'une option par arbre binomial CRR.
-
-    1. On calcule les prix terminaux (à maturité) et les payoffs associés.
-    2. On remonte l'arbre pas par pas (backward induction) en actualisant
-       l'espérance risque-neutre : V = e^(-r*dt) * (p*V_up + (1-p)*V_down)
-    3. Pour une option américaine, à chaque nœud on compare avec la valeur
-       d'exercice immédiat et on garde le max (c'est la seule différence
-       avec le cas européen).
-    """
+    
+   # Prix d'une option par arbre binomial CRR.
+    
     params = crr_params(T, r, sigma, N)
     dt, u, d, p = params['dt'], params['u'], params['d'], params['p']
     disc = np.exp(-r * dt)
@@ -94,12 +75,10 @@ def price(S, K, T, r, sigma, N=200, option_type='call', exercise='european'):
 
 
 def early_exercise_premium(S, K, T, r, sigma, N=200, option_type='put'):
-    """
-    Prime d'exercice anticipé = prix américain - prix européen (toujours >= 0).
+   
+    #Prime d'exercice anticipé = prix américain - prix européen (toujours >= 0).
 
-    En pratique : quasi nulle pour un call sans dividende (jamais intéressant
-    d'exercer tôt), mais significative pour un put bien dans la monnaie.
-    """
+  
     p_euro = price(S, K, T, r, sigma, N, option_type, 'european')
     p_amer = price(S, K, T, r, sigma, N, option_type, 'american')
     return {

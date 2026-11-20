@@ -17,19 +17,17 @@ The Black-Scholes model is one of the most used methods for pricing European opt
 
 The model assumes that the underlying asset follows a Geometric Brownian Motion:
 
-[
-dS_t = \mu S_t,dt + \sigma S_t,dW_t
-]
+$$
+dS_t = \mu S_t \, dt + \sigma S_t \, dW_t
+$$
 
 Where:
 
-(S_t): Underlying asset price.
+- $S_t$: Underlying asset price.
+- $\mu$: Expected return.
+- $\sigma$: Volatility.
+- $W_t$: Standard Brownian motion.
 
-(\mu): Expected return.
-
-(\sigma): Volatility.
-
-(W_t): Standard Brownian motion.
 
 Some of the main assumptions are constant volatility, a constant risk-free rate, and no transaction costs.
 
